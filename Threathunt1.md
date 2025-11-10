@@ -59,6 +59,8 @@ Pinpointing the first unusual execution helps you anchor the timeline and follow
 2. Two
 
 **Gathered Info:**
+<img width="1147" height="184" alt="image" src="https://github.com/user-attachments/assets/ea2b09ff-40c5-4536-99da-c7099b4de70c" />
+
 
 User account name: g4bri3lintern
 
