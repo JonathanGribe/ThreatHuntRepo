@@ -40,7 +40,9 @@ DeviceFileEvents
 ```
 **Most suspicious device:**
 
-**HostName:** gab-intern-vm
+**HostName:** gab-intern-vm   **User Account Name:** User account name: g4bri3lintern **Date:** October 9th, 2025 at 
+
+
 <img width="1218" height="273" alt="image" src="https://github.com/user-attachments/assets/794b2c1a-296e-48d2-8c9d-a89aca2642a1" />
 
 ## Flag 1 – Initial Execution Detection
@@ -62,7 +64,6 @@ Pinpointing the first unusual execution helps you anchor the timeline and follow
 <img width="1147" height="184" alt="image" src="https://github.com/user-attachments/assets/ea2b09ff-40c5-4536-99da-c7099b4de70c" />
 
 
-User account name: g4bri3lintern
 
 
 
