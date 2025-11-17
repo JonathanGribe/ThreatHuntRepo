@@ -5,7 +5,11 @@
 <img width="637" height="156" alt="image" src="https://github.com/user-attachments/assets/677bd9f2-f2ca-4fa5-bc51-6c21779e90a9" />
 
 ## Table of Contents
-
+1. [Scenario](## Scenario)
+2. [Start Here - Identify most suspicious machine]()
+3. [Usage](#usage)
+4. [Troubleshooting](#troubleshooting)
+5. [Conclusion](#conclusion)
 ## Scenario
 
 A routine support request should have ended with a reset and reassurance. Instead, the so-called “help” left behind a trail of anomalies that don’t add up.
@@ -43,7 +47,9 @@ DeviceFileEvents
 **HostName:** gab-intern-vm   **User Account Name:** g4bri3lintern **Date:** October 9th, 2025 
 
 
-<img width="1218" height="273" alt="image" src="https://github.com/user-attachments/assets/794b2c1a-296e-48d2-8c9d-a89aca2642a1" />
+
+<img width="1219" height="270" alt="image" src="https://github.com/user-attachments/assets/f79cbd1e-cb36-4229-ac6b-46843243a249" />
+
 
 ## Flag 1 – Initial Execution Detection
 
@@ -60,8 +66,46 @@ Pinpointing the first unusual execution helps you anchor the timeline and follow
 1. Downloads
 2. Two
 
+**Process:  I ended up using two queries to find initial execution**
+
+**Query 1: DeviceFileEvents - Finding the suspicous file .ps1 file**
+
+```kql
+DeviceFileEvents
+| where TimeGenerated between (datetime(2025-10-01) .. datetime(2025-10-15))
+| where DeviceName == @"gab-intern-vm" 
+| where FolderPath contains @"C:\Users\g4bri3lintern\Downloads"
+
+```
+
 **Gathered Info:**
-<img width="1147" height="184" alt="image" src="https://github.com/user-attachments/assets/ea2b09ff-40c5-4536-99da-c7099b4de70c" />
+
+*Found suspicious file: SupportTool.ps1*
+
+<img width="670" height="311" alt="image" src="https://github.com/user-attachments/assets/dcd56bcf-6be5-4eab-8978-d97ec0a113bd" />
+
+**Query 2: DeviceProcessEvents-Finding the initial execution**
+
+*Powershell CLI: "powershell.exe" -ExecutionPolicy Bypass -File C:\Users\g4bri3lintern\Downloads\SupportTool.ps1*
+
+
+```kql
+
+DeviceProcessEvents
+| where TimeGenerated between (datetime(2025-10-01) .. datetime(2025-10-15))
+| where DeviceName == @"gab-intern-vm"
+| where ProcessCommandLine contains "SupportTool.ps1"
+| project TimeGenerated, DeviceName, FileName, ProcessCommandLine
+| order by TimeGenerated asc
+
+```
+
+<img width="1169" height="172" alt="image" src="https://github.com/user-attachments/assets/a0cde094-a7a1-4a4e-8d46-9ce08adc3fdc" />
+
+## Flag 2: Defense Disabling (Simulated Tamper Indicator)
+
+
+
 
 
 
